@@ -2,30 +2,33 @@ from mrjob.job import MRJob
 
 class MinTemperature(MRJob):
 
-        """ The below mapper() function defines the mapper for MapReduce and takes
-        key value argument and generates the output in tuple format .
-        The mapper below is splitting the line and generating a word with its own
-        count i.e. 1 """
         def mapper(self, _, line):
+                yield(line.split()[1][4:6], (float(line.split()[5]), float(line.split()[6])))
 
-                """
-                From the dataset get the T_DAILY_MIN value. Convert it into float
-                Since Min is a single value make key as same for all the data
-                """
-                yield("Min_temp",float(tuple(line.split())[6]))
-                yield("Max_temp",float(tuple(line.split())[5]))
+        def reducer(self, month, temp):
+                ma_list = []
+                mi_list = []
+                dict_list = {
+                        1: "Jan",
+                        2: "Feb",
+                        3: "Mar",
+                        4: "Apr",
+                        5: "May",
+                        6: "Jun",
+                        7: "Jul",
+                        8: "Aug",
+                        9: "Sep",
+                        10: "Oct",
+                        11: "Nov",
+                        12: "Dec"
+                }
+                mn = dict_list[int(month)]
+                for ele in temp:
+                        ma_list.append(ele[0])
+                        mi_list.append(ele[1])
+                maxi_temp = max(ma_list)
+                mini_temp = min(mi_list)
+                yield ( mn, (maxi_temp, mini_temp) )
 
-
-                        
-        """ The below reducer() is aggregating the result according to their key and
-        producing the output in a key-value format with its min  and max value"""
-        def reducer(self, word,temperature):
-                if word == 'Min_temp':
-                    yield(word,min(temperature))
-                else:
-                    yield(word,max(temperature))
-
-"""the below 2 lines are ensuring the execution of mrjob, the program will not
-execute without them"""
 if __name__ == '__main__':
         MinTemperature.run()
