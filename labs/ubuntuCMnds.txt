@@ -1,0 +1,659 @@
+    1  pwd
+    2  ls
+    3  sudo apt-get update 
+    4  sudo apt-get install openjdk-11-jdk
+    5  sudo ln -s /usr/lib/jvm/java-11-openjdk-amd64 /opt/java
+    6  whereis java
+    7  sudo apt-get install ssh
+    8  sudo apt-get install pdsh
+    9  curl https://downloads.apache.org/hadoop/common/stable/hadoop-3.3.4.tar.gz -o hadoop-3.3.4.tar.gz
+   10  ls -lct
+   11  rm hadoop-3.3.4.tar.gz 
+   12  ls
+   13  curl https://downloads.apache.org/hadoop/common/stable/hadoop-3.3.4.tar.gz -o hadoop-3.3.4.tar.gz
+   14  tar xzvf hadoop-3.3.4.tar.gz 
+   15  sudo mv hadoop-3.3.4 /opt/hadoop
+   16  cd /opt/hadoop
+   17  sudo vi etc/hadoop/hadoop-env.sh
+   18  sudo vi ~/.bashrc
+   19  source ~/.bashrc
+   20  cd $HADOOP_HOME
+   21  sudo mkdir input
+   22  sudo cp etc/hadoop/*.xml input
+   23  sudo bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar grep input output 'dfs[a-z.]+'
+   24  cat output/*
+   25  sudo vi etc/hadoop/core-site.xml
+   26  sudo vi etc/hadoop/hdfs-site.xml
+   27  ssh localhost
+   28  sudo apt-get install ssh
+   29  sudo apt-get install pdsh
+   30  cd~
+   31  cd ~
+   32  ls
+   33  sudo service ssh restart 
+   34  ssh localhost
+   35  ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+   36  cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+   37  chmod 0600 ~/.ssh/authorized_keys
+   38  ssh localhost
+   39  hdfs namenode -format
+   40  sudo vi ~/.bashrc
+   41  source ~/.bashrc
+   42  jps
+   43  start-all.sh 
+   44  jps
+   45  hdfs dfs -mkdir /user
+   46  hdfs dfs -ls -R
+   47  hdfs dfs -ls -R /
+   48  hdfs dfs -mkdir /user/training
+   49  hdfs dfs -mkdir /tmp
+   50  hdfs dfs -chmod -R 777 /user
+   51  hdfs dfs -chmod -R 1777 /tmp
+   52  sudo chmod -R 777 /tmp
+   53  hdfs dfs -ls /user/training
+   54  cd $HADOOP_HOME
+   55  ls
+   56  hdfs dfs -mkdir /user/training/input
+   57  hdfs dfs -put etc/hadoop/*.xml /user/training/input
+   58  hdfs dfs -rm -r /user/training/output
+   59  hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar grep /user/training/input /user/training/output 'dfs[a-z.]+'
+   60  hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar wordcount /user/training/input /user/training/output
+   61  hdfs dfs -get /user/training/output output
+   62  cat output/*
+   63  hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar grep /user/training/input /user/training/output 'dfs[a-z.]+'
+   64  hdfs dfs -cat /user/training/output/part*
+   65  jps
+   66  stop-all.sh
+   67  jps
+   68  start-all.sh
+   69  jps
+   70  hdfs namenode -format
+   71  sudo nano ~/.bashrc
+   72  tail ~/.bashrc
+   73  source ~/.bashrc
+   74  start-dfs.sh
+   75  jps
+   76  ps -aux | grep java | awk '{print $12}'
+   77  hdfs dfs -mkdir /user
+   78  hdfs dfs -mkdir /user/training
+   79  hdfs dfs -mkdir /tmp
+   80  hdfs dfs -chmod -R 777 /use
+   81  sudo vi etc/hadoop/mapred-site.xml
+   82  tail etc/hadoop/mapred-site.xml
+   83  cat etc/hadoop/mapred-site.xml
+   84  cd opt/hadoop/
+   85  cd /opt/hadoop/
+   86  cat etc/hadoop/mapred-site.xml
+   87  sudo vi  etc/hadoop/mapred-site.xml
+   88  cat etc/hadoop/yarn-site.xml
+   89  sudo vi etc/hadoop/yarn-site.xml
+   90  stop-all.sh
+   91  start-all.sh
+   92  ps -aux | grep java | awk '{print $12}'
+   93  jps
+   94  ps aux | grep java
+   95  java -version
+   96  update-alternatives --list java
+   97  sudo apt-get install openjdk-8-jdk
+   98  update-alternatives --list java
+   99  sudo update-alternatives --config java
+  100  java -version
+  101  sudo rm -r /opt/java
+  102  sudo ln -s /usr/lib/jvm/java-8-openjdk-amd64 /opt/java
+  103  cd ~
+  104  ls
+  105  rm hive-3.1.3.tar.gz 
+  106  rm -r /opt/hive 
+  107  rm -R /opt/hive 
+  108  sudo rm -r /opt/hive 
+  109  curl https://downloads.apache.org/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz -o hive-3.1.3.tar.gz
+  110  tar xzvf hive-3.1.3.tar.gz
+  111  sudo mv apache-hive-3.1.3-bin /opt/hive
+  112  sudo vi ~/.bashrc
+  113  source ~/.bashrc
+  114  hive --version 
+  115  cd $HIVE_HOME/conf
+  116  sudo vi hive-site.xml
+  117  hive
+  118  rm -rf $HIVE_HOME/metastore_db
+  119  cd $HIVE_HOME
+  120  schematool -initSchema -dbType derby
+  121  hadoop fs -mkdir /tmp
+  122  hadoop fs -mkdir /user/hive
+  123  hadoop fs -mkdir /user/hive/warehouse
+  124  hadoop fs -chmod g+w /tmp
+  125  hadoop fs -chmod g+w /user/hive/warehouse
+  126  hive
+  127  bin/beeline
+  128  cd ~
+  129  sudo apt update
+  130  sudo apt-get install mysql-server
+  131  sudo service mysql status
+  132  sudo service mysql stop
+  133  sudo service mysql start
+  134  sudo mysql -u root
+  135  jps
+  136  cd /opt/hadoop/conf
+  137  cd /opt/
+  138  ls
+  139  cd hadoop/
+  140  ls
+  141  cd conf
+  142  ssh root@127.0.0.1  -p 2222
+  143  set JAVA_HOME=/opt/java
+  144  jps
+  145  sudo nano etc/hadoop/hadoop-env.sh
+  146  tail etc/hadoop/hadoop-env.sh
+  147  sudo vi etc/hadoop/hadoop-env.sh
+  148  jps
+  149  ps -ef | grep NameNode
+  150  ssh root@127.0.0.1  -p 22
+  151  jps
+  152  ssh root@127.0.0.1  -p 22
+  153  cd conf
+  154  ls
+  155  java -version
+  156  sudo nano etc/hadoop/hadoop-env.sh
+  157  cd ~
+  158  ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+  159  cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+  160  chmod 0600 ~/.ssh/authorized_keys
+  161  dfs dfs -chmod -R 777 /user
+  162  hdfs dfs -chmod -R 777 /user
+  163  hdfs dfs -chmod -R 777 /tmp
+  164  sudo chmod -R 777 /tmp
+  165  jps
+  166  ls /tmp
+  167  ls
+  168  cd /
+  169  ls
+  170  sudo chmod 777 /tmp
+  171  jps
+  172  ps -aux | grep java | awk '{print $12}'
+  173  stop-all.sh
+  174  exit
+  175  hdfs namenode -format
+  176  sudo service ssh restart 
+  177  jps
+  178  start-all.sh
+  179  jps
+  180  ps -aux | grep java | awk '{print $12}'
+  181  stop-all.sh
+  182  ps -aux | grep java | awk '{print $12}'
+  183  sudo apt-get update
+  184  sudo apt-get install openjdk-11-jdk
+  185  sudo ln -s /usr/lib/jvm/java-11-openjdk-amd64 /opt/java
+  186  whereis java
+  187  sudo apt-get install ssh
+  188  sudo apt-get install pdsh
+  189  cd /opt/hadoop
+  190  sudo nano etc/hadoop/hadoop-env.sh
+  191  sudo vi etc/hadoop/hadoop-env.sh
+  192  sudo vi ~/.bashrc
+  193  source ~/.bashrc
+  194  sudo vi etc/hadoop/core-site.xml
+  195  sudo vi etc/hadoop/hdfs-site.xml
+  196  sudo service ssh restart
+  197  ssh localhost
+  198  exit
+  199  sudo service ssh restart 
+  200  stop-all.sh
+  201  start-all.sh
+  202  jps
+  203  sudo apt install scala
+  204  scala -version
+  205  curl https://dlcdn.apache.org/spark/spark-3.3.2/spark-3.3.2-bin-hadoop3.tgz -o spark-3.3.2.tgz
+  206  tar xzvf spark-3.3.2.tgz
+  207  sudo mv spark-3.3.2-bin-hadoop3 /opt/spark
+  208  sudo vi ~/.bashrc
+  209  source ~/.bashrc
+  210  cp /opt/spark/conf/spark-defaults.conf.template /opt/spark/conf/spark-defaults.conf
+  211  sudo vi /opt/spark/conf/spark-defaults.conf
+  212  sudo mkdir /tmp/spark-events
+  213  sudo chmod 777 /tmp/spark-events
+  214  start-master.sh
+  215  pyspark
+  216  scala -version
+  217  jps
+  218  stop-all.sh
+  219  pyspark
+  220  pyspark --master local
+  221  start-master.sh
+  222  jps
+  223  whereis java
+  224  start-slave.sh spark://MILE-BL-4827-LAP.:7077
+  225  vi ~/.bashrc
+  226  source ~/.bashrc
+  227  jps
+  228  vi ~/.bashrc
+  229  source ~/.bashrc
+  230  jps
+  231  sudo update-alternatives --config jps --auto
+  232  ps
+  233  ps -ef
+  234  ps -e
+  235  ps -ef
+  236  ps -ef | worker
+  237  ps -ef | grep worker
+  238  ps -ef | grep worker slave
+  239  ps -ef | grep slave
+  240  pyspark --master spark://MILE-BL-4827-LAP.:7077
+  241  ls
+  242  cd /home
+  243  ls
+  244  cd mkm/
+  245  ls
+  246  git clone https://github.com/asaravanakumar/futurense_hadoop-pyspark.git
+  247  pyspark --master spark://MILE-BL-4827-LAP.:7077
+  248  ls
+  249  cd futurense_hadoop-pyspark/
+  250  cd labs/pyspark/pyspark-application/
+  251  ls
+  252  spark-submit wordcount.py 
+  253  vi wordcount.py 
+  254  spark-submit wordcount.py 
+  255  ps -ef | grep runner | awk {'print$2'}
+  256  pwdx `ps -ef | grep runner | awk {'print$2'}`
+  257  ps -ef | grep runner | for i in `awk {'print$2'}`; ;
+  258  ps -ef | grep runner | for i in `awk {'print$2'}`; do pwdx $i; done
+  259  ps aux | grep java
+  260  jps -lV
+  261  jcmd
+  262  ps -e
+  263  cd ..
+  264  git pull 
+  265  cd /labs/pyspark/
+  266  ls
+  267  cd pyspark/pyspark-application/
+  268  ls
+  269  cat wordcount.py 
+  270  cd ..
+  271  ls
+  272  cd pyspark-shell/
+  273  cat pyspark-core-wordcount-example.txt 
+  274  vi pyspark-core-wordcount-example.txt 
+  275  cat pyspark-core-wordcount-example.txt 
+  276  vi pyspark-core-wordcount-example.txt 
+  277  cat pyspark-core-wordcount-example.txt 
+  278  vi pyspark-core-wordcount-example.txt 
+  279  cat pyspark-core-wordcount-example.txt 
+  280  cd ..
+  281  ls
+  282  git pull 
+  283  git pull --force
+  284  git stash
+  285  git pull 
+  286  ls
+  287  git pull 
+  288  pyspark
+  289  spark-shell
+  290  pyspark
+  291  pyspark --master spark://MILE-BL-4827-LAP.:7077
+  292  stop-all.sh
+  293  start.sh
+  294  start-all.sh
+  295  jps
+  296  start-master.sh
+  297  git pull 
+  298  cd labs/pyspark/pyspark-examples/
+  299  ls
+  300  cat pyspark-rdd.py
+  301  spark-submit pyspark-rdd.py
+  302  cat pyspark-rdd.py
+  303  spark-submit --master spark://MILE-BL-4827-LAP.:7077 pyspark-rdd.py
+  304  spark-submit pyspark-rdd.py
+  305  ls
+  306  cat pyspark-rdd-map.py 
+  307  spark-submit --master spark://MILE-BL-4827-LAP.:707pyspark-rdd-map.py 
+  308  spark-submit --master spark://MILE-BL-4827-LAP.:707 pyspark-rdd-map.py 
+  309  spark-submit --master spark://MILE-BL-4827-LAP.:7077 pyspark-rdd-map.py 
+  310  cat pyspark-rdd-map.py 
+  311  cp pyspark-rdd-map.py mkm-rdd-sq.py
+  312  vi mkm-rdd-sq.py 
+  313  spark-submit mkm-rdd-sq.py 
+  314  vi mkm-rdd-sq.py 
+  315  spark-submit mkm-rdd-sq.py 
+  316  vi mkm-rdd-sq.py 
+  317  spark-submit --master  spark://MILE-BL-4827-LAP.:7077 mkm-rdd-sq.py 
+  318  cat mkm-rdd-sq.py 
+  319  cat pyspark-rdd-flatMap.py 
+  320  spark-submit pyspark-rdd-flatMap.py 
+  321  cat pyspark-rdd-flatMap.py 
+  322  cp pyspark-rdd-flatMap.py mkm-rdd-flatMap.py
+  323  vi mkm-rdd-flatMap.py 
+  324  spark-submit mkm-rdd-flatMap.py 
+  325  vi mkm-rdd-flatMap.py 
+  326  spark-submit mkm-rdd-flatMap.py 
+  327  vi mkm-rdd-flatMap.py 
+  328  spark-submit mkm-rdd-flatMap.py 
+  329  vi mkm-rdd-flatMap.py 
+  330  spark-submit mkm-rdd-flatMap.py 
+  331  vi mkm-rdd-flatMap.py 
+  332  spark-submit mkm-rdd-flatMap.py 
+  333  vi mkm-rdd-flatMap.py 
+  334  spark-submit mkm-rdd-flatMap.py 
+  335  vi mkm-rdd-flatMap.py 
+  336  spark-submit mkm-rdd-flatMap.py 
+  337  vi mkm-rdd-flatMap.py 
+  338  spark-submit mkm-rdd-flatMap.py 
+  339  vi mkm-rdd-flatMap.py 
+  340  spark-submit mkm-rdd-flatMap.py 
+  341  spark-submit --master spark://MILE-BL-4827-LAP.:7077 mkm-rdd-flatMap.py 
+  342  cd ..
+  343  cd pyspark-application/
+  344  ls
+  345  cat filter.py 
+  346  pyspark-submit --master spark://MILE-BL-4827-LAP.:7077 filter.py 
+  347  spark-submit --master spark://MILE-BL-4827-LAP.:7077 filter.py 
+  348  spark-submit filter.py 
+  349  cat filter.py 
+  350  cp filter.py gtfivefilter.py
+  351  vi gtfivefilter.py 
+  352  spark-submit gtfivefilter.py 
+  353  vi gtfivefilter.py 
+  354  spark-submit gtfivefilter.py 
+  355  vi gtfivefilter.py 
+  356  spark-submit gtfivefilter.py 
+  357  vi gtfivefilter.py 
+  358  spark-submit gtfivefilter.py 
+  359  vi gtfivefilter.py 
+  360  spark-submit gtfivefilter.py 
+  361  vi gtfivefilter.py 
+  362  ls
+  363  vi trans.txt
+  364  cat trans.txt
+  365  exit() ;
+  366  exit
+  367  pyspark
+  368  pyspark --master spark://MILE-BL-4827-LAP.:7077
+  369  exit
+  370  hadoop fs -du -s -h / | awk '$1 > "1.0G" {print $2}'
+  371  jps
+  372  ps -ef | grep runner | awk {'print$2'}
+  373  sudo apt-get update
+  374  java -version
+  375  ls /usr/lib/
+  376  ls /usr/lib/jvm/
+  377  sudo ln -s /usr/lib/jvm/java-1.8.0-openjdk-amd64 /opt/java
+  378  whereis java
+  379  sudo apt-get install ssh
+  380  sudo apt-get install pdsh
+  381  cd /opt/hadoop
+  382  hadoop fs -ls /
+  383  sudo vi etc/hadoop/hadoop-env.sh
+  384  sudo vi ~/.bashrc
+  385  sudo vi etc/hadoop/core-site.xml
+  386  start-all.sh
+  387  ps -ef | grep runner | awk {'print$2'}
+  388  stop-all.sh
+  389  sudo service ssh restart 
+  390  start-all.sh
+  391  hadoop fs -ls /
+  392  ps -ef | grep runner | awk {'print$2'}
+  393  ps aux | grep java
+  394  hadoop fs -du -s -h
+  395  hadoop fs -du -s -h /
+  396  hadoop fs -du  -h /
+  397  du 
+  398  du -s -h
+  399  df -s -h
+  400  df -h
+  401  du -h /
+  402  du -h 
+  403  du -h  | grep $1 > 1G
+  404  du -h  | grep $1 > 1
+  405  du -h  | grep $1 > '1G'
+  406  du -h  | awk $1 > '1G'
+  407  jps
+  408  du -s -h / | awk '$1 > "1.0G" {print $2}'
+  409  sudo du -s -h / | awk '$1 > "1.0G" {print $2}'
+  410  cd /;
+  411  cd /
+  412  ls
+  413  pwd
+  414  ls -lct
+  415  exit() ;
+  416  exit
+  417  jps
+  418  '
+  419  ;
+  420  cd /opt/hive/
+  421  ls
+  422  bin/beeline
+  423  jps
+  424  hive
+  425  cd /opt/hive
+  426  bin/beeline
+  427  beeline
+  428  jps
+  429  beeline
+  430  /opt/hive
+  431  cd /opt/hive
+  432  bin/beeline
+  433  hadoop fs -mkdir /tmp
+  434  hadoop fs -mkdir /user/hive
+  435  hadoop fs -mkdir /user/hive/warehouse
+  436  hadoop fs -chmod g+w /tmp
+  437  hadoop fs -chmod g+w /user/hive/warehouse
+  438  bin/beeline
+  439  stop-all.sh
+  440  cd /
+  441  exit
+  442  cd /opt/hive
+  443  bin/beeline 
+  444  stop-all.sh
+  445  sudo ssh service restart 
+  446  sudo service ssh restart 
+  447  start-all.sh
+  448  bin/beeline
+  449  cd /
+  450  ls -R
+  451  ls -R /
+  452  start-master.sh
+  453  pyspark
+  454  start-slave.sh spark://MILE-BL-4827-LAP.:7077
+  455  start-worker.sh spark://MILE-BL-4827-LAP.:7077
+  456  ls -l /tmp
+  457  mkdir /tmp/spark-events
+  458  ls -l /tmp
+  459  ls
+  460  cd ~
+  461  pwd
+  462  ls
+  463  cd futurense_hadoop-pyspark/
+  464  git pull 
+  465  pyspark
+  466  cd /opt/hive
+  467  bin/beeline
+  468  jps
+  469  ps -ef | grep java
+  470  bin/beeline
+  471  stop-all.sh 
+  472  clear
+  473  start-dfs.sh 
+  474  sudo jps
+  475  java -version
+  476  ps -ef | grep java
+  477  cd /opt/hadoop/logs/
+  478  ls -l
+  479  cat hadoop-mkm-datanode-MILE-BL-4827-LAP.log 
+  480  cd /tmp/hadoop-mkm/
+  481  ls -l
+  482  cd dfs/
+  483  ls -l
+  484  stop-dfs.sh
+  485  sudo rm -r data
+  486  start-dfs.sh
+  487  ps -ef | grep java
+  488  start-yarn.sh 
+  489  ps -ef | grep java
+  490  bin/beeline
+  491  cd /opt/hive/
+  492  bin/beeline
+  493  cd ~
+  494  pyspark
+  495  stop-all.sh
+  496  stop-yarn.sh
+  497  exit() ;
+  498  exit
+  499  cd ~
+  500  ls
+  501  cd futurense_hadoop-pyspark/
+  502  ls
+  503  cd labs/dataset/people/
+  504  ls
+  505  pwd
+  506  ls
+  507  cd ..
+  508  ls
+  509  git pull 
+  510  ls
+  511  exit
+  512  ls /
+  513  cd ~
+  514  ls
+  515  cd futurense_hadoop-pyspark/
+  516  git pull 
+  517  cd ..
+  518  stop-all.sh
+  519  sudo service ssh restart 
+  520  start-all.sh
+  521  ps -ef | grep java 
+  522  pyspark
+  523  stop-all.sh
+  524  exit
+  525  jps
+  526  stop-all.sh
+  527  sudo service ssh restart 
+  528  start-all.sh
+  529  jps
+  530  pyspark
+  531  exit
+  532  stop-all.sh
+  533  sudo service ssh restart 
+  534  start-all.sh
+  535  jps
+  536  cd ~
+  537  ls
+  538  cd futurense_hadoop-pyspark/
+  539  git pull
+  540  cd ..
+  541  ls
+  542  vi bankMarket.py
+  543  cd futurense_hadoop-pyspark/
+  544  cd labs\dataset\bankmarket
+  545  ls'
+  546  l;
+  547  dsfjsdapof
+  548  ls
+  549  pwd
+  550  cd ~
+  551  vi bankMarket.py 
+  552  pyspark-submit bankMarket.py 
+  553  spark-submit bankMarket.py 
+  554  vi bankMarket.py 
+  555  spark-submit bankMarket.py 
+  556  vi bankMarket.py 
+  557  spark-submit bankMarket.py 
+  558  pwd
+  559  cd ~
+  560  pwd
+  561  spark-submit bankMarket.py 
+  562  vi bankMarket.py 
+  563  spark-submit bankMarket.py 
+  564  ls -lct
+  565  vi bankMarket.py 
+  566  spark-submit bankMarket.py 
+  567  ls
+  568  pwd
+  569  vi bankMarket.py 
+  570  spark-submit bankMarket.py 
+  571  ls
+  572  vi bankMarket.py 
+  573  spark-submit bankMarket.py 
+  574  ls
+  575  spark-submit bankMarket.py 
+  576  vi bankMarket.py 
+  577  spark-submit bankMarket.py 
+  578  rm bankMarket.py 
+  579  spark-submit bankMarket.py 
+  580  ls
+  581  spark-submit bankMarket.py 
+  582  vi bankMarket.py
+  583  spark-submit bankMarket.py 
+  584  vi bankMarket.py
+  585  spark-submit bankMarket.py 
+  586  vi bankMarket.py
+  587  pyspark
+  588  pyspark --packages org.apache.spark:spark-avro_2.12:3.3.2
+  589  vi bankMarket.py
+  590  ls
+  591  rm -r df_ag01.parquet
+  592  rm ag_out.parquet/
+  593  rm -r ag_out.parquet/
+  594  ls
+  595  spark-submit bankMarket.py 
+  596  vi bankMarket.py
+  597  ls
+  598  rm -r df_ag01.parquet/
+  599  spark-submit bankMarket.py 
+  600  vi bankMarket.py
+  601  ls
+  602  rm -r df_ag01.parquet/
+  603  spark-submit bankMarket.py 
+  604  rm -r df_ag01.parquet/
+  605  ls
+  606  spark-submit bankMarket.py --packages org.apache.spark:spark-avro_2.12:3.3.2
+  607  rm -r df_ag01.parquet/
+  608  vi bankMarket.py
+  609  ls
+  610  spark-submit bankMarket.py --packages org.apache.spark:spark-avro_2.12:3.3.2
+  611  vi bankMarket.py
+  612  rm -r df_ag01.parquet/
+  613  spark-submit --packages org.apache.spark:spark-avro_2.12:3.3.2 bankMarket.py 
+  614  ls
+  615  rm -r df_ag01.parquet/
+  616  rm -r df_avro01.avro/
+  617  vi bankMarket.py
+  618  spark-submit --packages org.apache.spark:spark-avro_2.12:3.3.2 bankMarket.py 
+  619  start-all.sh
+  620  ps ef | grep java 
+  621  start-yarn.sh
+  622  start-master.sh
+  623  start-slave.sh
+  624  ps ef | grep java 
+  625  ls
+  626  rm -r df*
+  627  ls
+  628  spark-submit --packages org.apache.spark:spark-avro_2.12:3.3.2 bankMarket.py --master spark://MILE-BL-4827-LAP.:7077
+  629  ls
+  630  start-slave.sh --master spark://MILE-BL-4827-LAP.:7077
+  631  start-worker.sh
+  632  start-worker.sh spark://MILE-BL-4827-LAP.:7077
+  633  spark-submit --packages org.apache.spark:spark-avro_2.12:3.3.2 bankMarket.py --master spark://MILE-BL-4827-LAP.:7077
+  634  rm -r df*
+  635  spark-submit --packages org.apache.spark:spark-avro_2.12:3.3.2 bankMarket.py --master spark://MILE-BL-4827-LAP.:7077
+  636  ls
+  637  cat bankMarket.py 
+  638  ls -lct
+  639  stop-all.sh
+  640  exit
+  641  ls
+  642  stop-all.sh
+  643  start-all.sh
+  644  sudo service ssh restart 
+  645  stop-all.sh
+  646  start-all.sh
+  647  jps
+  648  ps ef | grep java 
+  649  start-master.sh
+  650  start-slave.sh
+  651  start-worker.sh
+  652  ps ef | grep java 
+  653  ls
+  654  cd futurense_hadoop-pyspark/
+  655  git pull 
+  656  cd ..
+  657  ls -lct
+  658  history
+  659  history > ubuntuCmds.txt
