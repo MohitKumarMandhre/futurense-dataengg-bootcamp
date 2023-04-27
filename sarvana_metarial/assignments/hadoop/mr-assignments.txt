@@ -1,0 +1,14 @@
+
+Assignment #1:
+	Write Python MR program to perform below operations
+	a) Load the rating data from HDFS file system /user/training/movie/ratings.csv
+	b) Display rating wise movie count	
+
+Assignment #2:
+	Write Python MR program to perform below operations
+	a) Load the weather data from HDFS file system /user/training/weather
+	b) Display Max, Min weather
+	c) Display month wise Max and Min weather	 
+	
+
+	

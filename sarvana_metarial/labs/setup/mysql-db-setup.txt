@@ -1,0 +1,51 @@
+sudo apt update
+sudo apt-get install mysql-server
+
+#Auto started upon installation. Status check.
+#sudo systemctl status mysql
+sudo service mysql status
+
+#Stop mysql server
+#sudo systemctl stop mysql
+sudo service mysql stop
+
+#Start mysql server
+#sudo systemctl start mysql
+sudo service mysql start
+
+#Connect to MySQL server through CLI client
+sudo mysql -u root -p
+(password: [nopassword])
+
+show databases;
+
+##Fix for MySQL client connect issue
+sudo apt remove mysql-server
+sudo apt autoremove
+sudo rm -r /etc/mysql
+sudo apt-get install mysql-server
+sudo vi /etc/mysql/mysql.cnf
+:wq
+sudo apt-get install mysql-server
+sudo mysql -u root -p
+[no passwood]
+
+
+
+##### MYSQL tar installation
+STEP 1: Download MySQL tar file
+STEP 2: Copy into local directory and unzip
+STEP 3: Configure environmental variable to add MYSQL_HOME and update Path
+STEP 4: Open Commant Prompt as Administrator
+STEP 5: mysqld --version
+STEP 6: Create 'data' directory inside MySQL_HOME directory
+STEP 7: Initialize MySQL Server
+		mysqld --initialize-insecure
+STEP 8: Start MySQL Server
+		mysqld --console
+STEP 9: Open Command Prompt
+		mysql -u root -p
+		[Prompt password]
+		
+Note: Clean-up data directory if you get any error while executing
+	  'mysqld --initialize-insecure' command

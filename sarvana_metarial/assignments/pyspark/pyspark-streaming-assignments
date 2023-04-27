@@ -1,0 +1,26 @@
+
+	
+Assignment #1
+
+	Bank Marketing Campaign Data Analysis with PySpark Structured Streaming
+
+	Create PySpark Application - bank-marketing-stream-analysis.py. Perform below operations.
+	a) Consume Bank Marketing Campaign event from Kafka topic - bank-marketing-events
+	b) Get AgeGroup wise SubscriptionCount
+	c) Write the output into Kafka topic - bank-marketing-subcount
+
+Assignment #2
+
+	Enhance the Bank Marketing Campaign Data Analysis with PySpark Structured Streaming with below operations
+
+	Create PySpark Application - bank-marketing-stream-analysis-with-window.py. Perform below operations.
+	a) Consume Bank Marketing Campaign event from Kafka topic - bank-marketing-events
+	b) Get AgeGroup wise SubscriptionCount applying window of 60 secs with 10 secs sliding interval and watermark with 10 mins
+	c) Write the output into Kafka topic - bank-marketing-subcount-window
+
+
+
+
+
+
+

@@ -1,0 +1,43 @@
+
+#STEP 1: Check Python version and ensure you have Python 3.6+
+python3 --version
+
+#STEP 2: Create Airflow Workspace directory under user home directory
+
+mkdir ~/airflow_workspace
+
+#STEP 3: Install and Create Python Virtual Environment to setup standalone Airflow
+
+cd ~/airflow_workspace
+
+sudo pip3 install virtualenv
+
+virtualenv airflow_env
+
+#python3 -m venv py_env
+
+#STEP 4: Activate the Python Virtual Environment
+mkdir airflow
+export AIRFLOW_HOME=~/airflow_workspace/airflow
+
+source airflow_env/bin/activate
+
+#STEP 5: Install Airflow along with required dependencies
+
+pip3 install apache-airflow
+
+#pip install 'apache-airflow==2.5.1' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-3.10.txt"
+
+#STEP 6: Start Airflow standalone instance 
+airflow standalone
+
+#STEP 7: Note down the default username and password be generated during the startup
+
+
+#STEP 8: Open browser with below url to access Airflow UI
+http://localhost:8080
+
+#STEP 9: Login with default credentials generated at STEP 7
+
+#STEP 10: Airflow setup complete
+

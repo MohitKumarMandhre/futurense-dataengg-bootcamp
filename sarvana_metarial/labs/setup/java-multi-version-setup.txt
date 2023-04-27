@@ -1,0 +1,18 @@
+# Check current version of Java
+java -version
+
+# Check list of Java versions installed
+update-alternatives --list java
+
+# Install Java 8 (if not available)
+sudo apt-get install openjdk-8-jdk
+
+update-alternatives --list java
+
+# Change Java version to 8
+sudo update-alternatives --config java
+
+
+# Update JAVA_HOME to point to Java 8
+sudo rm -r /opt/java
+sudo ln -s /usr/lib/jvm/java-8-openjdk-amd64 /opt/java
