@@ -1,0 +1,578 @@
+	SQL
+		DDL
+		DML
+		DCL
+		TCL
+		DQL / DRL
+		Joins
+		Sub Queries
+		Built-in Functions
+		Custom Functions
+		Joins
+		Views
+		CTE
+		Window Functions
+		Indexes
+
+		Stored Procedures
+		Triggers
+		Cursors 
+		
+		Normalisation
+
+		Query Optimisation
+		Query Tuning
+		Explain
+		
+		DB Engines
+		DB Architecture
+		Profiling
+
+		
+	Python
+		Language Basics
+		Data Types
+		Operators
+		Control Flow
+		Loops
+
+		Functions
+		Strings
+
+		OOP
+			Class
+			Object
+			Abstraction
+			Encapsulation
+			Inheritance
+			Polymorphism
+
+		Package
+
+		Arrays
+		List
+		Tuple
+		Dictionary
+		Set
+
+		Exception Handling
+
+		I/O - Console / File
+
+		Database Connectivity
+			mysql.connector
+
+		NumPy
+
+		Pandas
+			Series
+			RW diff file formats
+			DataFrame
+
+	AWS
+		Core Services
+		EC2
+		IAM
+		S3
+		Networking
+		VPC
+		RDS	
+
+
+	Hadoop Setup
+
+		Pre-requisites:
+			1] Ubuntu OS
+			2] Java 11
+			3] SSH and PDSH Installation
+			
+
+		1] Download Hadoop
+		2] Install Hadoop
+		3] Configure Hadoop
+		hadoop-env.sh	
+		core-site.xml
+		hdfs-site.xm	
+			
+		4] Start HDFS
+	          	start-dfs.sh
+                       		NameNode
+		       		Secondary NameNode
+		       		DateNode
+
+	Hadoop
+
+		Modes
+			Standalone
+			Pseudo Distributed
+			Fully Distributed
+
+	HDFS
+			NameNode
+				- Maintaining Metadata
+				- No of files, No of blocks, Replications, Locations of blocks
+			Secondary NameNode
+				- Backup for NameNode
+				- Requires manual intervention to start in case primary NameNode fails
+				- Every one hour data be synced up
+			Data Node
+				- Stores actual data as Blocks
+				- Default size of Block is 128 MB (2.x and above)
+				- Replication helps to achieve fault tolerance
+			
+		Configuration
+			core-site.xml    -> Configurations common to both HDFS & MR. Namenode url, temp location, etc..
+			hdfs-site.xml     -> HDFS configuration -> block config, replication, storage location
+			hadoop-env.sh   -> Hadoop Environmental variables be there
+                 	mapred-site.xml -> Map Reduce related configuration goes here
+			yarn-site.xml       -> YARN related configuration goes here
+			masters			-> List of name nodes
+			slaves			-> List of data nodes
+		
+            
+		Rack Awareness
+		Edit Logs
+		fsImage
+		Fencing
+			
+
+	MR
+		- Distributed Processing
+		- Takes the processing to the data
+		- Executes the tasks in parallel
+
+		INPUT -> SPLIT -> MAP -> SHUFFLE -> REDUDE -> OUTPUT
+
+		Physical Split -> HDFS Block 
+		Logical Split -> Input Split
+		
+	YARN
+		Resource Manager
+		Node Manager
+		Application Master
+		Container
+
+	MR Advanced Concepts
+		Combiner
+		Partitioner
+		Map Side Join
+		Reduce Side Join
+		Distributed Cache
+		Counters
+		Input Format
+		Output Format
+		Record Reader
+		Record Writer
+
+
+	Hive
+		
+		Data Types
+			- primitives - tinyint, smallint, int, bigint, boolean, float, double, decimal, string, date
+			- complex   - struct, map, array, union
+						address.city
+						contact_no[1]
+						contact_no[‘first_name’]
+			
+			
+			Data Model
+				Schema | Database	
+					Table
+						Rows & Cols
+							Partition	
+								Bucket | Cluster
+				
+
+			Hive Components
+				- Hive Shell - CLI client to connect to Hive and execute queries
+				- Metastore - Stores Schema details. Embedded or External
+				- Driver	     - Co-ordinates the SQL query execution
+				- Compiler  - Parses SQL and translates into MR program and prepares exec plans
+				- Execution Engine - Submits MR Job to Hadoop cluster and gets output and sends to driver		
+
+			DDL
+				CREATE SCHEMA|DATABASE <SCHEMA|DB NAME>
+
+				CREATE TABLE <TABLE_NAME>
+				(COL_NAME DATA_TYPE, …)
+				ROW FORMAT DELIMITED
+				FIELDS TERMINATED BY “,”
+				LINES TERMINATED BY “\n”
+				STORED AS TEXTFILE
+
+				ACCOUNT
+				100,Arun,Savings,10000
+				101,Sanjay,Savings,50000
+
+				CREATE EXTERNAL TABLE <TABLE_NAME>
+				(COL_NAME DATA_TYPE, …)
+				ROW FORMAT DELIMITED
+				FIELDS TERMINATED BY “,”
+				LINES TERMINATED BY “\n”
+				STORED AS TEXTFILE
+				LOCATION ‘hdfs path’
+
+				Table Types
+					Managed | Internal Table - Hive manages the table life cycle. Deletes both metadata and actual data.
+					External Table - Deletes only metadata. Owns only metadata, not actual data.
+					
+				DESC FORMATTED <table_name>
+					column definition
+					hive details - location, type, file format, serde, etc..
+			
+				LOAD DATA LOCAL INPATH ‘file path’ OVERWRITE INTO TABLE <table-name>
+				LOAD DATA INPATH ‘hdfs://localhost:9000/file path’ OVERWRITE INTO TABLE <table-name>
+
+				INSERT OVERWRITE LOCAL DIRECTORY ‘file path’ AS SELECT * FROM TRANSACTIONS
+				INSERT OVERWRITE DIRECTORY ‘hdfs://localhost:9000/file path’ AS SELECT * FROM TRANSACTIONS
+
+				CREATE TABLE TRANS_AVRO STORED AS AVRO AS SELECT * FROM TRANSACTIONS
+
+				TRANS_ORC
+
+				INSERT OVERWRITE  INTO TRANS_ORC SELECT * FROM TRANSACTIONS					
+
+
+			Tables
+				Managed Table - Hive manages the lifecycle of the table. Deletes the table data and schema when dropping the table.
+				External Table - Deletes only schema not actual data when dropping table.
+				Partitioned Table - Partitions the tabled based on partition keys
+				Bucketed/Clustered Table - Divides the partitioned data further into multiple buckets
+
+
+			Joins
+
+				inner
+				left outer
+				right outer
+				full outer
+                                  cross join
+                                  self 
+
+				equi join
+                                  non-equi join
+
+				semi join
+                                  anti join
+                                  
+
+			Views
+				Virtual Views
+				Materialized Views
+				
+				CREATE VIEW <view-name> AS SELECT e.eid, e.name, c.country FROM employee e JOIN country c ON e.cid = c.id
+
+				SELECT * FROM <view-name>
+	                  
+
+			Hive Case Study
+			
+			File Formats
+				JSON - JsonSerde
+				CSV	    - OpenCsvSerde
+				RegEx - RegExSerde
+	
+				Text
+				Sequence
+				Avro - consists of schema and data, row based, compressed, write heavy work loads
+				Parquet - column based, read heavy work loads, high compression, widely used with Spark, Row Group, Column, Page
+				RC           - Row Column
+				ORC        - Optimized Row Column, read heavy work loads, high compression, Better support for Hive complex data types 
+						  Stripes, Index, Row Data, Footer
+
+			
+			Compression Techniques
+				GZip	- High compression ratio, Takes more res for compress / decompress, Not splittable, Not suitable for MR Job, Suitable for backup
+				BZip2.     - High compression ratio, Takes more time for compress / decompress, Splittable, Supports MR Job, 
+				LZO          - Low compression ratio, faster compress / decompress, Splittable, Suitable for all file formats
+				Snappy  - Avg compression ratio, faster compress / decompress, Splittable, Suitable for binary file formats
+
+
+			SQOOP
+				- Enables to import / export bulk structured data into/from HDFS / Hive / Base
+				- Creates Map tasks to import or export bulk data as well as incremental data
+				- sqoop import <src-tables> <target-path>
+				- sqoop export <src-path> <target-tables>
+
+				STEP 1: Download and setup SQOOP
+				STEP 2: Configure SQOOP to connect Hadoop
+				STEP 3: Configure SQOOP to connect to MySQL
+
+
+			FLUME
+				- Enables to acquire and ingest unstructured / streaming data into HDFS
+				- FLUME AGENT [SOURCE -> CHANNEL -> SINK]
+
+	
+	SPARK
+			- Distributed in-memory data processing framework
+			- Spark can support Local, HDFS, S3, Azure Blob, Azure Data Lake FS, Cassandra, etc.
+			- Multi Language support - Scala, Java, Python, SQL and R
+			
+			- MR vs Spark
+
+			- Spark Modes
+				- Local
+				- Standalone - uses it’s own cluster manager - master / workers
+				- YARN
+				- Mesos
+				- K8s
+
+			- Spark Architecture
+				- Driver
+					- Spark Context
+				- Cluster Manager
+				- Worker
+
+			- Spark Setup
+				STEP 1: Download and Setup Spark
+				STEP 2: Configure Spark to enable event logs
+				STEP 3: Launch PySpark shell
+
+		 	- Spark Modules
+				- Spark Core
+					- Spark Context - Coordinated job execution, cluster connection details, DAG
+					- Spark Session - Abstraction on different contexts - Spark Context, SQL Context, Hive Context, Streaming Context
+					- RDD
+						- Distributed, Immutable, Partitioned, Lazy Evaluated, Fault Tolerant
+						- Diff ways to create RDD
+							- Parallize the collection
+							- Loading Data from External File
+					- DAG (Directe Acyclic Graph)
+					- Transformation
+						- Narrow -> Map, Filter, FlatMap, etc..
+						- Wide - Repartition, Join, GroupByKey, ReduceByKey, AggregateByKey, Collaesce, etc..
+					- Action
+						- Count, Sum, Collect, Reduce, ForEach, etc..		
+
+					[1,2,3,4,5] -> 15
+					[(2013, [1,1,1]),(2020,[1,1,1,1,])] -> [(2013, 3), (2020, 4)] 
+					
+				- Spark SQL
+				- Spark Streaming
+				- Spark MLib
+				- Spring GraphX
+			
+
+			Transformations
+				- Map
+				- FlatMap
+				- Filter
+				- mapPartitions
+
+				- repartition
+				- coalesce
+				- distinct
+
+				- union
+				- intersection
+				
+				- join
+				- cogroup
+				- cartesian
+
+				- groupByKey
+				- reduceByKey
+				- aggregateByKey
+				- sortByKey
+
+			Actions
+				- count
+				- collect
+				- reduce
+				- sum
+				- min
+				- max
+				- mean
+				- forEach
+				- saveAsTextFile
+				- first
+				- take
+				- takeSample
+				- countByKey
+		
+			Persistence Level
+
+				- MEMORY_ONLY
+				- DISK_ONLY
+				- MEMORY_AND_DISK
+				- MEMORY_ONLY_2
+				- DISK_ONLY_2
+				- MEMORY_AND_DISK_2
+				
+			Share Variables
+				Broadcast Variable
+				Accumulator
+
+			
+	Spark SQL
+
+			Data Frame
+			
+				- Create DataFram
+					- DataFrameReader -> spark.read() -> Load data from external source
+					- From RDD -> rdd.toDF()
+					- Using CreateDataFrame with RDD -> spark.createDataFrame(rdd)
+					- Using CreateDataFrame with List of Rows -> spark.createDataFrame([Row(),Row()]
+					- Using CreateDataFrame with List of Tuples -> spark.createDataFrame([(),()]
+					- Using CreateDataFrame with Pandas DF -> spark.createDataFrame(pandasDF)
+					- Using CreateDataFrame with explicit schema -> spark.createDataFrame(rdd,schema=list|string|structtype)
+
+				- Print Schema -> df.printSchema()
+				- List values -> df.show()
+				
+				- Select columns
+					- df.select(df.col, df[‘col’], “col”)
+
+
+				- Functions
+					- String Functions -contcat_ws, lower, upper,
+					- Math Functions
+					- Date Functions
+					- Window Functions
+					- etc.
+
+				- Columns
+					- Add Column - df.withColumn(‘col_name’, fun())
+					- Drop Column
+					- Rename Column
+				
+				- Filtering
+				- Grouping
+				- Aggregation
+				- Joins
+
+				- Write Data From DF
+				
+				- Create Data Frame with Complex Data Types
+					- Struct, Array, Map
+				- When Function
+				- Expr Function
+				- Missing Values Handling - Filter, Drop, Replace
+				- Cast Function
+				- Col, Lit function
+				- Flattening with Explode, Explode Outer, PosExplode, PosExplode Outer
+				- Filter
+				- GroupBy
+				- Array Contains, to_csv()
+				- Aggregate Functions
+				- Where
+				- Distinct
+				- OrderBy
+
+		               - Joins
+					- Inner
+					- Full Outer
+					- Left Outer
+					- Right Outer			
+					- Left Semi
+					- Left Anti
+					- Cross
+					- Self
+			
+				- Window Functions
+					- row_number()
+					- rank()
+					- dense_rank()
+					- ntile()
+					- percent_rank()
+					- cume_dist()
+					- lag()
+					- lead()
+
+				- Writing SQL queries on DF
+					- Register DF as Temp Table or View
+					- spark.sql()
+
+				- Read/Write Data with DF
+					- spark.read => DataFrameReader
+					- df.write	 => DataFrameWriter
+
+					- spark.read.csv()		
+					- spark.read.options().csv()		
+
+					- df.write.csv()
+					- spark.read().options().csv()	
+
+				
+					- spark.read.load(path, format=csv, options)
+					- spark.read.format(“csv”).options().load()
+
+					- df.write.save(path, format=csv, options)
+					- df.write.format(“csv”).options().save()
+
+	Spark Streaming
+
+			Storm vs Kafka vs Flink vs Druid vs Spark Streaming
+			DStream
+				- Streaming data be converted into micro batches and each batch be processed and generates output
+				- Streaming Context 
+					- part of pyspark.streaming package
+					- need to pass Spark Context and batch interval while creating Streaming Context
+					- sources
+						- textFileStream
+						- socketTextStream 
+					- apply transformations on DStream
+					- start Streaming Context
+				- Windowing
+					- Sliding Window
+					- Tumbling Window
+
+				
+			Structured Streaming
+				- DataFrame API
+				- Unbounded table
+				- spark.readstream.format(“socket”).load()
+				- apply transformations on streaming DataFrame
+				- spark.writestream.outputMode(“complete|append|update”).format(“console|file”).start()
+
+				- Windowing
+				- Watermarking
+
+
+	Kafka
+			- Communication Styles - Sync vs Async
+			- Messaging Semantics
+				- Queue - point to point communication
+				- Topic 	- pub sub / one to many
+
+			- Kafka Architecture
+				- Producer - produces the events
+				- Broker	    - stores and process the events
+				- Consumer - consumes the events
+				- Zookeeper - co-ordination service and stores metadata
+
+		 	- Kafka Concepts
+				- Message/Event
+				- Topic
+				- Partition
+					- Leader
+					- Follower / ISR
+				- Replication
+
+				- Consumer Group
+
+				- Offset
+
+				- Create topic with 3 partitions on 3 broker Kafka cluster - partitions per broker?
+			
+
+			- Structured Streaming Kafka integration
+				- create Kafka streaming source and produce streaming DF
+					- spark.readStream
+							.format(“kafka”)
+								.option(“kafka.bootstrap.servers”, ”localhost:9092”)
+								.option(“subscribe”, ”movie-events”)
+								.option(“group.id”, ”movie-events-group”)
+
+							.load()
+				- apply transformations on streaming DF
+				- write streaming DF output into Kafka topics
+					- spark.writeStream
+							.outputMode(“complete|append|update”)
+							.format(“kafka”)
+								.option(“kafka.bootstrap.servers”, ”localhost:9092”)
+								.option(“topic”, “movie-events-out’)
+							.start()
+
+				

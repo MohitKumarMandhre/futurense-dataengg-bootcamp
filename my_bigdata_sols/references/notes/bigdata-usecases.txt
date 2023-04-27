@@ -1,0 +1,50 @@
+BigData Usecases
+
+	- AML / Fraud Detection
+	- Risk Modeling <- customer profile, ratings, history of loans/credits
+	- Credit Decision - Rating
+	- Click Stream Analysis - Performance Optimization / Auditing / Targeted Sales
+	- Customer Insights - 360 degree understanding of customer activities -> QoS / Targeted Sales
+	- Campaign Management Tracking - analysis effectiveness of campaign
+	- Customer Identity Masking
+	- Reconciliation 
+			Stock Exchange
+				- Orders  <- OMS
+				- Trades				
+				- ECS
+				- Despository
+	- Data Deduplication
+	
+	- Analytics -> Batch / Streaming
+		- Descriptive	-> Statistical Analysis
+		- Prescriptive  -> Recommendations -> AI/ML
+		- Predictive	-> Forecasting -> AI/ML
+	
+	- Objectives of Analytics
+		- Increase Revenue
+		- Reduce Risk
+		- Quality of Service
+	
+	- Hadoop
+		- Distributed Data Storage (HDFS)
+			- Name Node
+			- Secondary Name Node (active-passive)
+			- Standby Node / Federation (active-active) - HA / Load Balancing
+			- Data Node
+			
+			- Blocks -> 128 MB
+			
+			- File Formats - Sequence, Avro, Parquet, ORC, || JSON, CSV, TEXT
+			- Compression Techniques: Gzip, Bzip2, LZO, Snappy
+			
+		- Distributed Data Processing (MR)
+	
+			- INPUT -> Input Splits -> Map ->  Shuffle (Sorting + Merge) -> Reduce -> OUTPUT
+			
+		- YARN
+			- Resource Manager
+				- Scheduling
+				- Applications Manager
+			- Node Manager
+			- App Master
+			- Container -> cpu, mem, disk, n/w io

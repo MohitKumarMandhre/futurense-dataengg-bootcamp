@@ -1,0 +1,48 @@
+#PySpark wordcount example
+rdd1 = sc.textFile("/home/ubuntu/futurense_hadoop-pyspark/labs/dataset/wordcount/wordcount-input.txt")
+
+#Jack Bill Joe
+#Don Don Joe
+#Jack Don Bill
+
+rdd2 = rdd1.flatMap(lambda x: x.split(' '))
+
+#Jack 
+#Bill 
+#Joe
+#Don
+#Don
+#Joe
+#Jack
+#Don
+#Bill
+
+rdd3 = rdd2.map(lambda x: (x, 1)) // Mapper
+
+#(Jack, 1) 
+#(Bill, 1) 
+#(Joe, 1)
+#(Don ,1)
+#(Don, 1)
+#(Joe, 1)
+#(Jack, 1)
+#(Don, 1)
+#(Bill, 1)
+
+## Shuffle Output
+#(Bill, [1,1])
+#(Don, [1,1,1])
+#(Jack, [1,1])
+#(Joe, [1,1])
+
+rdd4 = rdd3.reduceByKey(lambda a, b: a + b) // Reducer
+
+#Bill 2
+#Don 3
+#Jack 2
+#Joe 2
+
+output = counts.collect()
+for (word, count) in output:
+	print("%s: %i" % (word, count))
+
